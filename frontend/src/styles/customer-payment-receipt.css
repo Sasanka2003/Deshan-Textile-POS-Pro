@@ -1,0 +1,372 @@
+.customer-payment-receipt-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+
+  display: grid;
+  place-items: center;
+
+  padding: 20px;
+
+  background:
+    rgba(17, 24, 39, 0.55);
+
+  backdrop-filter:
+    blur(3px);
+}
+
+.customer-payment-receipt-modal {
+  width:
+    min(
+      620px,
+      calc(100vw - 30px)
+    );
+
+  max-height:
+    calc(100vh - 40px);
+
+  overflow-y: auto;
+
+  border-radius: 14px;
+
+  background: #fff;
+
+  box-shadow:
+    0 24px 80px
+    rgba(0, 0, 0, 0.24);
+}
+
+.customer-payment-receipt-heading {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding:
+    16px
+    18px;
+
+  border-bottom:
+    1px solid #e5e7eb;
+}
+
+.customer-payment-receipt-heading span {
+  display: block;
+
+  color: #9ca3af;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  text-transform:
+    uppercase;
+}
+
+.customer-payment-receipt-heading h2 {
+  margin:
+    4px
+    0
+    0;
+
+  color: #111827;
+
+  font-size: 13px;
+
+  word-break:
+    break-all;
+}
+
+.customer-payment-receipt-heading button {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  background: #f3f4f6;
+
+  cursor: pointer;
+}
+
+.customer-payment-receipt-body {
+  padding:
+    20px;
+}
+
+.customer-payment-receipt-business {
+  text-align: center;
+}
+
+.customer-payment-receipt-business h3 {
+  margin:
+    8px
+    0
+    0;
+
+  color: #111827;
+
+  font-size: 19px;
+}
+
+.customer-payment-receipt-business p {
+  margin:
+    3px
+    0
+    0;
+
+  color: #6b7280;
+
+  font-size: 11px;
+}
+
+.customer-payment-receipt-meta {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 8px;
+
+  margin-top:
+    18px;
+}
+
+.customer-payment-receipt-meta > div {
+  padding:
+    11px;
+
+  border:
+    1px solid #e5e7eb;
+
+  border-radius: 9px;
+}
+
+.customer-payment-receipt-meta span,
+.customer-payment-receipt-summary span,
+.customer-payment-receipt-detail span {
+  display: block;
+
+  color: #9ca3af;
+
+  font-size: 9px;
+
+  text-transform:
+    uppercase;
+}
+
+.customer-payment-receipt-meta strong,
+.customer-payment-receipt-summary strong,
+.customer-payment-receipt-detail strong {
+  display: block;
+
+  margin-top:
+    4px;
+
+  color: #111827;
+
+  font-size: 12px;
+}
+
+.customer-payment-receipt-summary {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap: 8px;
+
+  margin-top:
+    14px;
+}
+
+.customer-payment-receipt-summary > div {
+  padding:
+    12px;
+
+  border:
+    1px solid #d1d5db;
+
+  border-radius: 9px;
+}
+
+.customer-payment-receipt-summary
+  .highlight {
+  border-color: #111827;
+
+  background: #f3f4f6;
+}
+
+.customer-payment-receipt-detail,
+.customer-payment-receipt-note {
+  margin-top:
+    14px;
+
+  padding:
+    12px;
+
+  border-radius:
+    9px;
+
+  background:
+    #f9fafb;
+}
+
+.customer-payment-receipt-note p {
+  margin:
+    5px
+    0
+    0;
+
+  color:
+    #6b7280;
+
+  font-size:
+    11px;
+}
+
+.customer-payment-receipt-actions {
+  display: flex;
+
+  justify-content:
+    flex-end;
+
+  gap: 8px;
+
+  padding:
+    14px
+    18px;
+
+  border-top:
+    1px solid #e5e7eb;
+}
+
+.customer-payment-receipt-actions
+  button {
+  min-height: 38px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding:
+    0
+    14px;
+
+  border-radius:
+    8px;
+
+  font-size:
+    11px;
+
+  font-weight:
+    800;
+
+  cursor: pointer;
+}
+
+.customer-payment-receipt-actions
+  .secondary {
+  border:
+    1px solid #d1d5db;
+
+  background:
+    #fff;
+
+  color:
+    #374151;
+}
+
+.customer-payment-receipt-actions
+  .primary {
+  border: 0;
+
+  background:
+    #111827;
+
+  color:
+    #fff;
+}
+
+.customer-payment-reprint-button {
+  width: 32px;
+  height: 32px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid #d1d5db;
+
+  border-radius:
+    7px;
+
+  background:
+    #fff;
+
+  color:
+    #374151;
+
+  cursor: pointer;
+}
+
+.customer-payment-reprint-button:hover:not(:disabled) {
+  border-color:
+    #111827;
+
+  color:
+    #111827;
+}
+
+.customer-payment-reprint-button:disabled {
+  opacity: 0.5;
+
+  cursor:
+    not-allowed;
+}
+
+@media (max-width: 650px) {
+  .customer-payment-receipt-meta,
+  .customer-payment-receipt-summary {
+    grid-template-columns:
+      1fr;
+  }
+
+  .customer-payment-receipt-actions {
+    flex-direction:
+      column;
+  }
+
+  .customer-payment-receipt-actions
+    button {
+    width: 100%;
+  }
+}
+.customer-payment-receipt-logo {
+  display: block;
+
+  width: 62px;
+  height: 46px;
+
+  margin:
+    0 auto
+    8px;
+
+  object-fit: contain;
+}

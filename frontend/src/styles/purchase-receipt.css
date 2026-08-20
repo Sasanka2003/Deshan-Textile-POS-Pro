@@ -1,0 +1,462 @@
+.purchase-receipt-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+
+  display: grid;
+  place-items: center;
+
+  padding: 20px;
+
+  background:
+    rgba(17, 24, 39, 0.55);
+
+  backdrop-filter:
+    blur(3px);
+}
+
+.purchase-receipt-modal {
+  width:
+    min(
+      780px,
+      calc(100vw - 30px)
+    );
+
+  max-height:
+    calc(100vh - 40px);
+
+  overflow-y: auto;
+
+  border-radius: 14px;
+
+  background: #fff;
+
+  box-shadow:
+    0 24px 80px
+    rgba(0, 0, 0, 0.24);
+}
+
+.purchase-receipt-heading {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px 18px;
+
+  border-bottom:
+    1px solid #e5e7eb;
+}
+
+.purchase-receipt-heading span {
+  display: block;
+
+  color: #9ca3af;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+}
+
+.purchase-receipt-heading h2 {
+  margin: 4px 0 0;
+
+  color: #111827;
+
+  font-size: 16px;
+}
+
+.purchase-receipt-heading button {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: #f3f4f6;
+
+  color: #4b5563;
+
+  cursor: pointer;
+}
+
+.purchase-receipt-body {
+  padding: 20px;
+}
+
+.purchase-receipt-business {
+  text-align: center;
+}
+
+.purchase-receipt-business h3 {
+  margin: 7px 0 0;
+
+  color: #111827;
+
+  font-size: 19px;
+}
+
+.purchase-receipt-business p {
+  margin: 3px 0 0;
+
+  color: #6b7280;
+
+  font-size: 11px;
+}
+
+.purchase-receipt-meta {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap: 8px;
+
+  margin-top: 18px;
+}
+
+.purchase-receipt-meta > div {
+  padding: 11px;
+
+  border:
+    1px solid #e5e7eb;
+
+  border-radius: 9px;
+
+  background: #f9fafb;
+}
+
+.purchase-receipt-meta span,
+.purchase-receipt-summary span {
+  display: block;
+
+  color: #9ca3af;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+}
+
+.purchase-receipt-meta strong,
+.purchase-receipt-summary strong {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #111827;
+
+  font-size: 11px;
+}
+
+.purchase-receipt-section-title {
+  margin-top: 18px;
+}
+
+.purchase-receipt-section-title span {
+  display: block;
+
+  color: #9ca3af;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+}
+
+.purchase-receipt-section-title strong {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #111827;
+
+  font-size: 13px;
+}
+
+.purchase-receipt-items-wrap {
+  overflow-x: auto;
+
+  margin-top: 9px;
+}
+
+.purchase-receipt-items {
+  width: 100%;
+  min-width: 650px;
+
+  border-collapse:
+    collapse;
+}
+
+.purchase-receipt-items th,
+.purchase-receipt-items td {
+  padding: 10px;
+
+  border-bottom:
+    1px solid #e5e7eb;
+
+  text-align: left;
+
+  font-size: 11px;
+}
+
+.purchase-receipt-items th {
+  background: #fafafa;
+
+  color: #6b7280;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+}
+
+.purchase-receipt-items .number {
+  text-align: right;
+}
+
+.purchase-receipt-items small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #9ca3af;
+
+  font-size: 9px;
+}
+
+.purchase-receipt-empty {
+  padding: 30px !important;
+
+  text-align:
+    center !important;
+
+  color: #9ca3af;
+}
+
+.purchase-receipt-summary {
+  width: min(360px, 100%);
+
+  margin:
+    18px
+    0
+    0
+    auto;
+}
+
+.purchase-receipt-summary > div {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 8px 0;
+
+  border-bottom:
+    1px solid #e5e7eb;
+}
+
+.purchase-receipt-summary > div strong {
+  margin: 0;
+}
+
+.purchase-receipt-summary .main {
+  margin-top: 3px;
+
+  padding:
+    11px
+    0;
+
+  border-top:
+    1px solid #111827;
+}
+
+.purchase-receipt-summary
+  .main span,
+.purchase-receipt-summary
+  .main strong {
+  color: #111827;
+
+  font-size: 15px;
+
+  font-weight: 800;
+}
+
+.purchase-receipt-summary
+  .balance strong {
+  color: #b45309;
+}
+
+.purchase-receipt-note {
+  margin-top: 16px;
+
+  padding: 12px;
+
+  border-radius: 9px;
+
+  background: #f9fafb;
+}
+
+.purchase-receipt-note strong {
+  color: #374151;
+
+  font-size: 11px;
+}
+
+.purchase-receipt-note p {
+  margin: 4px 0 0;
+
+  color: #6b7280;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+.purchase-receipt-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 8px;
+
+  padding: 14px 18px;
+
+  border-top:
+    1px solid #e5e7eb;
+}
+
+.purchase-receipt-actions button {
+  min-height: 39px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 0 14px;
+
+  border-radius: 8px;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.purchase-receipt-actions
+  .secondary {
+  border:
+    1px solid #d1d5db;
+
+  background: #fff;
+
+  color: #374151;
+}
+
+.purchase-receipt-actions
+  .primary {
+  border: 0;
+
+  background: #111827;
+
+  color: #fff;
+}
+
+@media (
+  max-width: 700px
+) {
+  .purchase-receipt-meta {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .purchase-receipt-actions {
+    flex-direction:
+      column;
+  }
+
+  .purchase-receipt-actions button {
+    width: 100%;
+  }
+}
+/* =========================================================
+   GRN MODAL ACTION BUTTONS
+========================================================= */
+
+.purchase-receipt-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 14px 18px;
+
+  border-top: 1px solid #e5e7eb;
+
+  background: #ffffff;
+}
+
+.purchase-receipt-actions button {
+  min-height: 36px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 0 14px;
+
+  border-radius: 8px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.purchase-receipt-actions .secondary {
+  border: 1px solid #d7dce3;
+
+  background: #ffffff;
+  color: #374151;
+}
+
+.purchase-receipt-actions .secondary:hover {
+  background: #f3f4f6;
+  border-color: #c7cdd6;
+}
+
+.purchase-receipt-actions .primary {
+  border: 1px solid #111827;
+
+  background: #111827;
+  color: #ffffff;
+}
+
+.purchase-receipt-actions .primary:hover {
+  background: #1f2937;
+  border-color: #1f2937;
+}
+.purchase-receipt-logo {
+  display: block;
+  width: 62px;
+  height: 46px;
+  margin: 0 auto 8px;
+  object-fit: contain;
+}

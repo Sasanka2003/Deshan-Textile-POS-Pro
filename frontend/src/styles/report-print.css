@@ -1,0 +1,381 @@
+/* =========================================================
+   DESHAN TEXTILE POS
+   PROFESSIONAL A4 REPORT PRINT
+========================================================= */
+
+.reports-print-portal,
+.report-print-view {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 7mm 8mm;
+  }
+
+  html,
+  body {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  #root {
+    display: none !important;
+  }
+
+  .reports-print-portal {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  .report-print-view {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 8.4px;
+    line-height: 1.22;
+  }
+
+  /* HEADER */
+
+  .report-print-header {
+    display: flex !important;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0 0 7px;
+    padding: 0 0 6px;
+    border-bottom: 1.4px solid #111827;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .report-print-header h1 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 800;
+    color: #111827;
+  }
+
+  .report-print-header h2 {
+    margin: 3px 0 0;
+    font-size: 8.5px;
+    line-height: 1.15;
+    font-weight: 700;
+    color: #374151;
+  }
+
+  .report-print-header p {
+    margin: 2px 0 0;
+    font-size: 7px;
+    line-height: 1.15;
+    color: #6b7280;
+  }
+
+  .report-print-period {
+    min-width: 155px;
+    padding-top: 1px;
+    text-align: right;
+  }
+
+  .report-print-period span {
+    display: block;
+    margin: 0 0 2px;
+    font-size: 6.3px;
+    line-height: 1;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .report-print-period strong {
+    display: block;
+    font-size: 7.6px;
+    line-height: 1.15;
+    font-weight: 700;
+    color: #111827;
+    white-space: nowrap;
+  }
+
+  /* SECTIONS */
+
+  .report-print-section {
+    margin: 0 0 7px !important;
+    padding: 0 !important;
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .report-print-section h3 {
+    margin: 0 0 3px;
+    padding: 0 0 3px;
+    border-bottom: 1px solid #9ca3af;
+    font-size: 8.8px;
+    line-height: 1.1;
+    font-weight: 800;
+    color: #111827;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .report-print-section-title {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .report-print-section-title h3 {
+    margin-bottom: 2px;
+  }
+
+  .report-print-section-title p {
+    margin: 0 0 4px;
+    font-size: 6.4px;
+    color: #6b7280;
+  }
+
+  .report-print-page-break {
+    break-before: auto !important;
+    page-break-before: auto !important;
+  }
+
+  /* SUMMARY CARDS */
+
+  .report-print-summary-grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 3px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .report-print-summary-grid > div {
+    min-height: 34px;
+    box-sizing: border-box;
+    padding: 4px 5px;
+    border: 1px solid #d1d5db;
+    border-radius: 2px;
+    background: #ffffff !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .report-print-summary-grid span {
+    display: block;
+    margin: 0 0 2px;
+    font-size: 6px;
+    line-height: 1.05;
+    font-weight: 600;
+    color: #6b7280;
+  }
+
+  .report-print-summary-grid strong {
+    display: block;
+    font-size: 7.8px;
+    line-height: 1.08;
+    font-weight: 800;
+    color: #111827;
+    white-space: nowrap;
+  }
+
+  .report-print-summary-grid small {
+    display: block;
+    margin-top: 2px;
+    font-size: 5.4px;
+    line-height: 1.05;
+    color: #6b7280;
+  }
+
+  .report-print-summary-grid .report-print-highlight {
+    border: 1.2px solid #111827;
+    background: #f3f4f6 !important;
+  }
+
+  .report-print-summary-grid .report-print-highlight span,
+  .report-print-summary-grid .report-print-highlight strong {
+    color: #111827 !important;
+  }
+
+  .report-print-cash-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .report-print-credit-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .report-print-compact-section,
+  .report-print-credit-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* TABLES */
+
+  .report-print-table {
+    width: 100% !important;
+    margin: 0 !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    table-layout: auto;
+    font-size: 6.8px;
+    color: #111827;
+  }
+
+  .report-print-table thead {
+    display: table-header-group;
+  }
+
+  .report-print-table tfoot {
+    display: table-footer-group;
+  }
+
+  .report-print-table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .report-print-table th {
+    padding: 2.4px 3px;
+    border: 1px solid #cbd5e1;
+    background: #f3f4f6 !important;
+    font-size: 5.8px;
+    line-height: 1.1;
+    font-weight: 800;
+    color: #374151;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .report-print-table td {
+    padding: 2.4px 3px;
+    border: 1px solid #e5e7eb;
+    font-size: 6.6px;
+    line-height: 1.12;
+    color: #374151;
+    vertical-align: middle;
+  }
+
+  .report-print-table td:first-child {
+    font-weight: 600;
+  }
+
+  .report-print-table td.number,
+  .report-print-table th.number {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .report-print-table tbody tr:nth-child(even) td {
+    background: #fafafa !important;
+  }
+
+  /* SALES TABLE */
+
+  .report-print-page-break .report-print-table {
+    font-size: 6.2px;
+  }
+
+  .report-print-page-break .report-print-table th {
+    padding: 2px 2.5px;
+    font-size: 5.3px;
+  }
+
+  .report-print-page-break .report-print-table td {
+    padding: 2px 2.5px;
+    font-size: 6.1px;
+    line-height: 1.08;
+  }
+
+  .report-print-page-break .report-print-table td:first-child,
+  .report-print-page-break .report-print-table td:nth-child(4),
+  .report-print-page-break .report-print-table td:nth-child(5),
+  .report-print-page-break .report-print-table td:nth-child(6) {
+    white-space: nowrap;
+  }
+
+  /* EMPTY STATE */
+
+  .report-print-empty {
+    margin: 0;
+    padding: 5px;
+    border: 1px dashed #d1d5db;
+    border-radius: 2px;
+    font-size: 6.8px;
+    color: #6b7280;
+    text-align: center;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* FOOTER */
+
+  .report-print-footer {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 6px 0 0;
+    padding: 4px 0 0;
+    border-top: 1px solid #d1d5db;
+    font-size: 6px;
+    line-height: 1.15;
+    color: #6b7280;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* CLEANUP */
+
+  .report-print-view button,
+  .report-print-view input,
+  .report-print-view textarea,
+  .report-print-view select {
+    display: none !important;
+  }
+
+  .report-print-view a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  .report-print-view,
+  .report-print-view * {
+    box-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media screen {
+  .reports-print-portal,
+  .report-print-view {
+    display: none !important;
+  }
+}

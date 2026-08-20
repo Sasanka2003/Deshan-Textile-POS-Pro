@@ -1,0 +1,330 @@
+.purchase-return-receipt-backdrop {
+  position: fixed;
+  z-index: 1200;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.48);
+  backdrop-filter: blur(2px);
+}
+
+.purchase-return-receipt-modal {
+  display: flex;
+  flex-direction: column;
+  width: min(920px, 96vw);
+  max-height: 92vh;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow:
+    0 20px 55px
+    rgba(15, 23, 42, 0.2);
+}
+
+.purchase-return-receipt-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 17px 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.purchase-return-receipt-heading span {
+  display: block;
+  margin-bottom: 3px;
+  color: #6b7280;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.purchase-return-receipt-heading h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 18px;
+}
+
+.purchase-return-receipt-heading button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border: 1px solid #e5e7eb;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.purchase-return-receipt-heading button:hover {
+  background: #f9fafb;
+  color: #111827;
+}
+
+.purchase-return-receipt-body {
+  overflow-y: auto;
+  padding: 22px;
+}
+
+.purchase-return-receipt-business {
+  text-align: center;
+}
+
+.purchase-return-receipt-logo {
+  display: block;
+  width: 76px;
+  max-height: 58px;
+  margin: 0 auto 8px;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.3);
+}
+
+.purchase-return-receipt-business h3 {
+  margin: 0;
+  color: #111827;
+  font-size: 21px;
+}
+
+.purchase-return-receipt-business p {
+  margin: 4px 0 0;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.purchase-return-receipt-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  color: #374151;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.purchase-return-receipt-meta {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.purchase-return-receipt-meta > div {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 9px;
+  background: #f9fafb;
+}
+
+.purchase-return-receipt-meta span {
+  display: block;
+  margin-bottom: 5px;
+  color: #6b7280;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.purchase-return-receipt-meta strong {
+  display: block;
+  color: #111827;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.purchase-return-receipt-section-title {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.purchase-return-receipt-section-title span {
+  color: #6b7280;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.purchase-return-receipt-section-title strong {
+  color: #111827;
+  font-size: 13px;
+}
+
+.purchase-return-receipt-items-wrap {
+  overflow-x: auto;
+}
+
+.purchase-return-receipt-items {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.purchase-return-receipt-items th,
+.purchase-return-receipt-items td {
+  padding: 11px 10px;
+  border-bottom: 1px solid #eef0f2;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.purchase-return-receipt-items th {
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.purchase-return-receipt-items td {
+  color: #374151;
+  font-size: 11.5px;
+}
+
+.purchase-return-receipt-items td strong {
+  color: #111827;
+}
+
+.purchase-return-receipt-items td small {
+  display: block;
+  margin-top: 3px;
+  color: #6b7280;
+}
+
+.purchase-return-receipt-items .number {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.purchase-return-receipt-empty {
+  height: 80px;
+  color: #6b7280 !important;
+  text-align: center !important;
+}
+
+.purchase-return-receipt-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #f9fafb;
+  color: #111827;
+}
+
+.purchase-return-receipt-summary span {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.purchase-return-receipt-summary strong {
+  font-size: 19px;
+}
+
+.purchase-return-receipt-note {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 9px;
+  background: #ffffff;
+}
+
+.purchase-return-receipt-note strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #111827;
+  font-size: 12px;
+}
+
+.purchase-return-receipt-note p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.purchase-return-receipt-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 15px 20px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.purchase-return-receipt-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 39px;
+  padding: 0 15px;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.purchase-return-receipt-actions .secondary {
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #374151;
+}
+
+.purchase-return-receipt-actions .primary {
+  border: 1px solid #111827;
+  background: #111827;
+  color: #ffffff;
+}
+
+.purchase-return-receipt-actions .secondary:hover {
+  background: #f3f4f6;
+}
+
+.purchase-return-receipt-actions .primary:hover {
+  background: #1f2937;
+}
+
+@media (max-width: 720px) {
+  .purchase-return-receipt-backdrop {
+    padding: 10px;
+  }
+
+  .purchase-return-receipt-modal {
+    width: 100%;
+    max-height: 96vh;
+  }
+
+  .purchase-return-receipt-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .purchase-return-receipt-actions {
+    flex-direction: column-reverse;
+  }
+
+  .purchase-return-receipt-actions button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,758 @@
+.barcode-page {
+  display: grid;
+  gap: 18px;
+}
+
+.barcode-page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.barcode-page-heading h1 {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 27px;
+}
+
+.barcode-page-heading p {
+  margin: 5px 0 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+.barcode-page-badge {
+  min-height: 38px;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 0 13px;
+
+  border:
+    1px solid #e5e7eb;
+
+  border-radius: 9px;
+
+  background: #fff;
+
+  color: #374151;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.barcode-message {
+  min-height: 40px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 13px;
+
+  border-radius: 9px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.barcode-message.error {
+  border:
+    1px solid #fecaca;
+
+  background: #fef2f2;
+
+  color: #b91c1c;
+}
+
+.barcode-message.success {
+  border:
+    1px solid #bbf7d0;
+
+  background: #f0fdf4;
+
+  color: #166534;
+}
+
+.barcode-workspace {
+  display: grid;
+
+  grid-template-columns:
+    270px
+    minmax(0, 1fr)
+    300px;
+
+  gap: 14px;
+
+  align-items: start;
+}
+
+.barcode-product-panel,
+.barcode-preview-card,
+.barcode-settings-card {
+  overflow: hidden;
+
+  border:
+    1px solid #e5e7eb;
+
+  border-radius: 12px;
+
+  background: #fff;
+}
+
+.barcode-card-heading {
+  min-height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 13px 15px;
+
+  border-bottom:
+    1px solid #e5e7eb;
+
+  color: #6b7280;
+}
+
+.barcode-card-heading h2 {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 16px;
+}
+
+.barcode-card-heading p {
+  margin: 4px 0 0;
+
+  color: #9ca3af;
+
+  font-size: 12px;
+}
+
+.barcode-product-search {
+  min-height: 40px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 12px;
+
+  padding: 0 10px;
+
+  border:
+    1px solid #d1d5db;
+
+  border-radius: 8px;
+
+  color: #9ca3af;
+}
+
+.barcode-product-search input {
+  width: 100%;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  font-size: 13px;
+}
+
+.barcode-product-list {
+  max-height: 620px;
+
+  overflow-y: auto;
+
+  padding: 0 8px 8px;
+}
+
+.barcode-product-item {
+  width: 100%;
+
+  min-height: 74px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-bottom: 6px;
+
+  padding: 10px;
+
+  border:
+    1px solid transparent;
+
+  border-radius: 9px;
+
+  background: #f9fafb;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.barcode-product-item:hover {
+  border-color: #d1d5db;
+
+  background: #fff;
+}
+
+.barcode-product-item.active {
+  border-color: #111827;
+
+  background: #fff;
+}
+
+.barcode-product-item > div {
+  min-width: 0;
+
+  display: grid;
+
+  gap: 3px;
+}
+
+.barcode-product-item strong {
+  overflow: hidden;
+
+  color: #111827;
+
+  font-size: 12px;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.barcode-product-item span {
+  color: #6b7280;
+
+  font-size: 11px;
+}
+
+.barcode-product-item small {
+  color: #9ca3af;
+
+  font-size: 10px;
+}
+
+.barcode-product-price {
+  flex-shrink: 0;
+}
+
+.barcode-empty {
+  min-height: 160px;
+
+  display: grid;
+  place-items: center;
+
+  color: #9ca3af;
+
+  font-size: 12px;
+}
+
+.barcode-preview-empty {
+  min-height: 520px;
+
+  display: grid;
+  place-items: center;
+  align-content: center;
+
+  gap: 8px;
+
+  color: #9ca3af;
+
+  text-align: center;
+}
+
+.barcode-preview-empty strong {
+  color: #374151;
+
+  font-size: 14px;
+}
+
+.barcode-preview-empty span {
+  font-size: 12px;
+}
+
+.barcode-preview-area {
+  min-height: 520px;
+
+  display: grid;
+  place-items: center;
+  align-content: center;
+
+  gap: 28px;
+
+  padding: 30px;
+}
+
+.barcode-label-preview {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  padding: 10px;
+
+  border:
+    1px solid #111827;
+
+  border-radius: 4px;
+
+  background: #fff;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0, 0, 0, 0.08);
+}
+
+.barcode-label-preview.\34 0x25 {
+  width: 302px;
+  min-height: 189px;
+}
+
+.barcode-label-preview.\35 0x30 {
+  width: 378px;
+  min-height: 227px;
+}
+
+.barcode-label-name {
+  width: 100%;
+
+  overflow: hidden;
+
+  color: #111827;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  text-align: center;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.barcode-label-variant {
+  margin-top: 3px;
+
+  color: #4b5563;
+
+  font-size: 11px;
+}
+
+.barcode-label-preview svg {
+  max-width: 96%;
+
+  margin-top: 7px;
+}
+
+.barcode-label-sku {
+  margin-top: 3px;
+
+  color: #4b5563;
+
+  font-size: 10px;
+}
+
+.barcode-label-price {
+  margin-top: 3px;
+
+  color: #111827;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.barcode-no-code {
+  min-height: 80px;
+
+  display: grid;
+  place-items: center;
+
+  color: #9ca3af;
+
+  font-size: 11px;
+}
+
+.barcode-preview-meta {
+  width: min(
+    560px,
+    100%
+  );
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
+
+  gap: 8px;
+}
+
+.barcode-preview-meta > div {
+  padding: 11px;
+
+  border-radius: 8px;
+
+  background: #f9fafb;
+}
+
+.barcode-preview-meta span {
+  display: block;
+
+  color: #9ca3af;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+}
+
+.barcode-preview-meta strong {
+  display: block;
+
+  margin-top: 3px;
+
+  overflow: hidden;
+
+  color: #374151;
+
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.barcode-settings-card {
+  position: sticky;
+
+  top: 84px;
+}
+
+.barcode-settings {
+  display: grid;
+
+  gap: 13px;
+
+  padding: 14px;
+}
+
+.barcode-settings > label,
+.barcode-quantity-group {
+  display: grid;
+
+  gap: 6px;
+
+  color: #374151;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.barcode-settings input,
+.barcode-settings select {
+  min-height: 38px;
+
+  padding: 0 9px;
+
+  border:
+    1px solid #d1d5db;
+
+  border-radius: 8px;
+
+  outline: 0;
+
+  background: #fff;
+
+  font-size: 12px;
+}
+
+.barcode-input-action {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    39px;
+
+  gap: 6px;
+}
+
+.barcode-input-action button {
+  display: grid;
+
+  place-items: center;
+
+  border:
+    1px solid #d1d5db;
+
+  border-radius: 8px;
+
+  background: #fff;
+
+  color: #374151;
+
+  cursor: pointer;
+}
+
+.barcode-generate-button {
+  min-height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border:
+    1px solid #111827;
+
+  border-radius: 8px;
+
+  background: #fff;
+
+  color: #111827;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.barcode-generate-button:disabled,
+.barcode-input-action button:disabled {
+  opacity: 0.4;
+
+  cursor: not-allowed;
+}
+
+.barcode-quantity-control {
+  display: grid;
+
+  grid-template-columns:
+    38px
+    minmax(0, 1fr)
+    38px;
+}
+
+.barcode-quantity-control button {
+  display: grid;
+
+  place-items: center;
+
+  border:
+    1px solid #d1d5db;
+
+  background: #f9fafb;
+
+  color: #374151;
+
+  cursor: pointer;
+}
+
+.barcode-quantity-control button:first-child {
+  border-radius:
+    8px
+    0
+    0
+    8px;
+}
+
+.barcode-quantity-control button:last-child {
+  border-radius:
+    0
+    8px
+    8px
+    0;
+}
+
+.barcode-quantity-control input {
+  border-radius: 0;
+
+  border-left: 0;
+  border-right: 0;
+
+  text-align: center;
+}
+
+.barcode-checkbox-row {
+  display: flex !important;
+
+  grid-template-columns: none;
+
+  flex-direction: row;
+
+  align-items: center;
+
+  gap: 8px !important;
+
+  cursor: pointer;
+}
+
+.barcode-checkbox-row input {
+  width: 16px;
+  height: 16px;
+
+  min-height: auto;
+
+  margin: 0;
+}
+
+.barcode-print-summary {
+  padding: 13px;
+
+  border-radius: 9px;
+
+  background: #f9fafb;
+}
+
+.barcode-print-summary span,
+.barcode-print-summary small {
+  display: block;
+
+  color: #6b7280;
+
+  font-size: 10px;
+}
+
+.barcode-print-summary strong {
+  display: block;
+
+  margin: 4px 0;
+
+  color: #111827;
+
+  font-size: 24px;
+}
+
+.barcode-print-button {
+  min-height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  background: #111827;
+
+  color: #fff;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.barcode-print-button:disabled {
+  opacity: 0.4;
+
+  cursor: not-allowed;
+}
+
+@media (
+  max-width: 1250px
+) {
+  .barcode-workspace {
+    grid-template-columns:
+      250px
+      minmax(0, 1fr);
+  }
+
+  .barcode-settings-card {
+    position: static;
+
+    grid-column:
+      1 / -1;
+  }
+}
+
+@media (
+  max-width: 800px
+) {
+  .barcode-page-heading {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .barcode-workspace {
+    grid-template-columns:
+      1fr;
+  }
+
+  .barcode-settings-card {
+    grid-column: auto;
+  }
+
+  .barcode-preview-meta {
+    grid-template-columns:
+      1fr 1fr;
+  }
+}
+
+@media (
+  max-width: 500px
+) {
+  .barcode-preview-area {
+    padding: 16px;
+  }
+
+  .barcode-label-preview.\34 0x25,
+  .barcode-label-preview.\35 0x30 {
+    width: 100%;
+  }
+
+  .barcode-preview-meta {
+    grid-template-columns:
+      1fr;
+  }
+}
+.barcode-save-button {
+  min-height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: #111827;
+  color: #fff;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.barcode-save-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
