@@ -21,6 +21,7 @@ CLIENT_HEADER_VALUE = 'deshan-textile-pos'
 _DEFAULT_ALLOWED_ORIGINS = {
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    'https://deshan-textile-pos-pro.pages.dev',
 }
 
 _EXTRA_ALLOWED_ORIGINS = {
@@ -1599,6 +1600,19 @@ class Handler(BaseHTTPRequestHandler):
             'Access-Control-Allow-Methods',
             'POST, OPTIONS',
         )
+
+        # Chromium Private Network Access (PNA).
+        # Required when the hosted HTTPS POS calls a localhost/loopback bridge.
+        if (
+            self.headers.get(
+                'Access-Control-Request-Private-Network',
+                '',
+            ).lower() == 'true'
+        ):
+            self.send_header(
+                'Access-Control-Allow-Private-Network',
+                'true',
+            )
 
     def _json_response(self, status, payload):
         body = json.dumps(payload).encode('utf-8')
