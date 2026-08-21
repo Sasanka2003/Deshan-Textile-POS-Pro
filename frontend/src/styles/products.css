@@ -304,3 +304,18 @@
     grid-column: auto;
   }
 }
+.row-actions .danger-button {
+  border-color: #fecaca;
+  color: #b91c1c;
+  background: #ffffff;
+}
+
+.row-actions .danger-button:hover:not(:disabled) {
+  background: #fef2f2;
+  border-color: #fca5a5;
+}
+
+.row-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

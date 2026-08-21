@@ -181,7 +181,9 @@ export async function getProducts(
   )
 }
 
-function normalizeOptionalText(value: string | null) {
+function normalizeOptionalText(
+  value: string | null,
+) {
   const clean = value?.trim()
 
   return clean ? clean : null
@@ -294,13 +296,32 @@ export async function setProductActiveStatus(
     throw new Error(error.message)
   }
 }
+
+export async function deleteUnusedProduct(
+  productId: string,
+  businessId: string,
+) {
+  const { data, error } = await supabase.rpc(
+    'delete_unused_product',
+    {
+      p_business_id: businessId,
+      p_product_id: productId,
+    },
+  )
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
+}
+
 export async function saveProductBarcode(
   productId: string,
   businessId: string,
   barcode: string,
 ): Promise<string> {
-  const cleanBarcode =
-    barcode.trim()
+  const cleanBarcode = barcode.trim()
 
   if (!cleanBarcode) {
     throw new Error(
@@ -308,9 +329,7 @@ export async function saveProductBarcode(
     )
   }
 
-  if (
-    cleanBarcode.length < 4
-  ) {
+  if (cleanBarcode.length < 4) {
     throw new Error(
       'Barcode is too short.',
     )
@@ -322,18 +341,9 @@ export async function saveProductBarcode(
   } = await supabase
     .from('products')
     .select('id, name')
-    .eq(
-      'business_id',
-      businessId,
-    )
-    .eq(
-      'barcode',
-      cleanBarcode,
-    )
-    .neq(
-      'id',
-      productId,
-    )
+    .eq('business_id', businessId)
+    .eq('barcode', cleanBarcode)
+    .neq('id', productId)
     .maybeSingle()
 
   if (duplicateError) {
@@ -354,33 +364,21 @@ export async function saveProductBarcode(
   } = await supabase
     .from('products')
     .update({
-      barcode:
-        cleanBarcode,
+      barcode: cleanBarcode,
     })
-    .eq(
-      'id',
-      productId,
-    )
-    .eq(
-      'business_id',
-      businessId,
-    )
+    .eq('id', productId)
+    .eq('business_id', businessId)
     .select('barcode')
     .single()
 
   if (error) {
-    if (
-      error.code ===
-      '23505'
-    ) {
+    if (error.code === '23505') {
       throw new Error(
         'This barcode is already assigned to another product.',
       )
     }
 
-    throw new Error(
-      error.message,
-    )
+    throw new Error(error.message)
   }
 
   if (!data?.barcode) {
@@ -389,7 +387,5 @@ export async function saveProductBarcode(
     )
   }
 
-  return String(
-    data.barcode,
-  )
+  return String(data.barcode)
 }

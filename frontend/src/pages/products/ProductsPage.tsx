@@ -1,4 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
+
 import {
   Plus,
   Search,
@@ -11,6 +16,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import {
   createCategory,
   createProduct,
+  deleteUnusedProduct,
   getCategories,
   getProducts,
   setProductActiveStatus,
@@ -56,28 +62,55 @@ const emptyForm: ProductInput = {
 export default function ProductsPage() {
   const { staff } = useAuth()
 
-  const [products, setProducts] = useState<Product[]>([])
-  const [categories, setCategories] = useState<Category[]>([])
+  const [products, setProducts] =
+    useState<Product[]>([])
 
-  const [loading, setLoading] = useState(true)
-  const [saving, setSaving] = useState(false)
+  const [categories, setCategories] =
+    useState<Category[]>([])
 
-  const [search, setSearch] = useState('')
-  const [error, setError] = useState('')
+  const [loading, setLoading] =
+    useState(true)
 
-  const [formOpen, setFormOpen] = useState(false)
-  const [categoryOpen, setCategoryOpen] = useState(false)
+  const [saving, setSaving] =
+    useState(false)
 
-  const [editingProduct, setEditingProduct] =
-    useState<Product | null>(null)
+  const [
+    deletingProductId,
+    setDeletingProductId,
+  ] = useState<string | null>(null)
 
-  const [form, setForm] = useState<ProductInput>(emptyForm)
-
-  const [categoryName, setCategoryName] = useState('')
-  const [categoryDescription, setCategoryDescription] =
+  const [search, setSearch] =
     useState('')
 
-  const businessId = staff?.businessId
+  const [error, setError] =
+    useState('')
+
+  const [formOpen, setFormOpen] =
+    useState(false)
+
+  const [categoryOpen, setCategoryOpen] =
+    useState(false)
+
+  const [
+    editingProduct,
+    setEditingProduct,
+  ] = useState<Product | null>(null)
+
+  const [form, setForm] =
+    useState<ProductInput>(emptyForm)
+
+  const [
+    categoryName,
+    setCategoryName,
+  ] = useState('')
+
+  const [
+    categoryDescription,
+    setCategoryDescription,
+  ] = useState('')
+
+  const businessId =
+    staff?.businessId
 
   async function loadData() {
     if (!businessId) return
@@ -86,11 +119,13 @@ export default function ProductsPage() {
       setLoading(true)
       setError('')
 
-      const [productData, categoryData] =
-        await Promise.all([
-          getProducts(businessId),
-          getCategories(businessId),
-        ])
+      const [
+        productData,
+        categoryData,
+      ] = await Promise.all([
+        getProducts(businessId),
+        getCategories(businessId),
+      ])
 
       setProducts(productData)
       setCategories(categoryData)
@@ -109,26 +144,33 @@ export default function ProductsPage() {
     void loadData()
   }, [businessId])
 
-  const filteredProducts = useMemo(() => {
-    const q = search.trim().toLowerCase()
+  const filteredProducts =
+    useMemo(() => {
+      const q =
+        search.trim().toLowerCase()
 
-    if (!q) return products
+      if (!q) {
+        return products
+      }
 
-    return products.filter((product) =>
-      [
-        product.name,
-        product.sku,
-        product.barcode,
-        product.categoryName,
-        product.colour,
-        product.size,
-      ]
-        .filter(Boolean)
-        .some((value) =>
-          String(value).toLowerCase().includes(q),
-        ),
-    )
-  }, [products, search])
+      return products.filter(
+        (product) =>
+          [
+            product.name,
+            product.sku,
+            product.barcode,
+            product.categoryName,
+            product.colour,
+            product.size,
+          ]
+            .filter(Boolean)
+            .some((value) =>
+              String(value)
+                .toLowerCase()
+                .includes(q),
+            ),
+      )
+    }, [products, search])
 
   function openCreateForm() {
     setEditingProduct(null)
@@ -136,22 +178,47 @@ export default function ProductsPage() {
     setFormOpen(true)
   }
 
-  function openEditForm(product: Product) {
+  function openEditForm(
+    product: Product,
+  ) {
     setEditingProduct(product)
 
     setForm({
-      categoryId: product.categoryId,
-      supplierId: product.supplierId,
-      sku: product.sku,
-      barcode: product.barcode,
-      name: product.name,
-      colour: product.colour,
-      size: product.size,
-      unit: product.unit,
-      costPrice: product.costPrice,
-      retailPrice: product.retailPrice,
-      wholesalePrice: product.wholesalePrice,
-      minimumStockQty: product.minimumStockQty,
+      categoryId:
+        product.categoryId,
+
+      supplierId:
+        product.supplierId,
+
+      sku:
+        product.sku,
+
+      barcode:
+        product.barcode,
+
+      name:
+        product.name,
+
+      colour:
+        product.colour,
+
+      size:
+        product.size,
+
+      unit:
+        product.unit,
+
+      costPrice:
+        product.costPrice,
+
+      retailPrice:
+        product.retailPrice,
+
+      wholesalePrice:
+        product.wholesalePrice,
+
+      minimumStockQty:
+        product.minimumStockQty,
     })
 
     setFormOpen(true)
@@ -199,6 +266,8 @@ export default function ProductsPage() {
     if (!businessId) return
 
     try {
+      setError('')
+
       await setProductActiveStatus(
         product.id,
         businessId,
@@ -212,6 +281,51 @@ export default function ProductsPage() {
           ? err.message
           : 'Unable to update product.',
       )
+    }
+  }
+
+  async function handleDeleteProduct(
+    product: Product,
+  ) {
+    if (!businessId) return
+
+    if (staff?.role !== 'manager') {
+      setError(
+        'Manager permission is required to delete products.',
+      )
+      return
+    }
+
+    const confirmed =
+      window.confirm(
+        `Permanently delete "${product.name}"?\n\n` +
+          'This is only allowed when the product has never been used in sales, purchases, returns, stock movements or held bills.\n\n' +
+          'This action cannot be undone.',
+      )
+
+    if (!confirmed) return
+
+    try {
+      setDeletingProductId(
+        product.id,
+      )
+
+      setError('')
+
+      await deleteUnusedProduct(
+        product.id,
+        businessId,
+      )
+
+      await loadData()
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Unable to delete product.',
+      )
+    } finally {
+      setDeletingProductId(null)
     }
   }
 
@@ -249,8 +363,10 @@ export default function ProductsPage() {
       <section className="products-heading">
         <div>
           <h1>Products</h1>
+
           <p>
-            Manage textile products, prices, barcodes,
+            Manage textile products,
+            prices, barcodes,
             categories and selling units.
           </p>
         </div>
@@ -258,7 +374,9 @@ export default function ProductsPage() {
         <div className="products-actions">
           <button
             className="secondary-button"
-            onClick={() => setCategoryOpen(true)}
+            onClick={() =>
+              setCategoryOpen(true)
+            }
             type="button"
           >
             <Tags size={18} />
@@ -290,14 +408,17 @@ export default function ProductsPage() {
             <input
               value={search}
               onChange={(event) =>
-                setSearch(event.target.value)
+                setSearch(
+                  event.target.value,
+                )
               }
               placeholder="Search product, barcode, SKU..."
             />
           </div>
 
           <div className="products-count">
-            {filteredProducts.length} products
+            {filteredProducts.length}{' '}
+            products
           </div>
         </div>
 
@@ -320,99 +441,157 @@ export default function ProductsPage() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={9} className="empty-row">
+                  <td
+                    colSpan={9}
+                    className="empty-row"
+                  >
                     Loading products...
                   </td>
                 </tr>
-              ) : filteredProducts.length === 0 ? (
+              ) : filteredProducts.length ===
+                0 ? (
                 <tr>
-                  <td colSpan={9} className="empty-row">
+                  <td
+                    colSpan={9}
+                    className="empty-row"
+                  >
                     No products found.
                   </td>
                 </tr>
               ) : (
-                filteredProducts.map((product) => (
-                  <tr key={product.id}>
-                    <td>
-                      <div className="product-name-cell">
-                        <strong>{product.name}</strong>
+                filteredProducts.map(
+                  (product) => (
+                    <tr key={product.id}>
+                      <td>
+                        <div className="product-name-cell">
+                          <strong>
+                            {product.name}
+                          </strong>
 
-                        {(product.colour || product.size) && (
+                          {(product.colour ||
+                            product.size) && (
+                            <span>
+                              {[
+                                product.colour,
+                                product.size,
+                              ]
+                                .filter(Boolean)
+                                .join(' • ')}
+                            </span>
+                          )}
+                        </div>
+                      </td>
+
+                      <td>
+                        {product.categoryName ??
+                          '—'}
+                      </td>
+
+                      <td>
+                        <div className="product-code-cell">
                           <span>
-                            {[product.colour, product.size]
-                              .filter(Boolean)
-                              .join(' • ')}
+                            {product.sku ??
+                              'No SKU'}
                           </span>
+
+                          <small>
+                            {product.barcode ??
+                              'No barcode'}
+                          </small>
+                        </div>
+                      </td>
+
+                      <td>
+                        {product.unit}
+                      </td>
+
+                      <td>
+                        Rs.{' '}
+                        {product.costPrice.toFixed(
+                          2,
                         )}
-                      </div>
-                    </td>
+                      </td>
 
-                    <td>
-                      {product.categoryName ?? '—'}
-                    </td>
+                      <td>
+                        Rs.{' '}
+                        {product.retailPrice.toFixed(
+                          2,
+                        )}
+                      </td>
 
-                    <td>
-                      <div className="product-code-cell">
-                        <span>{product.sku ?? 'No SKU'}</span>
-                        <small>
-                          {product.barcode ?? 'No barcode'}
-                        </small>
-                      </div>
-                    </td>
+                      <td>
+                        Rs.{' '}
+                        {product.wholesalePrice.toFixed(
+                          2,
+                        )}
+                      </td>
 
-                    <td>{product.unit}</td>
-
-                    <td>
-                      Rs. {product.costPrice.toFixed(2)}
-                    </td>
-
-                    <td>
-                      Rs. {product.retailPrice.toFixed(2)}
-                    </td>
-
-                    <td>
-                      Rs. {product.wholesalePrice.toFixed(2)}
-                    </td>
-
-                    <td>
-                      <span
-                        className={
-                          product.isActive
-                            ? 'status-active'
-                            : 'status-inactive'
-                        }
-                      >
-                        {product.isActive
-                          ? 'Active'
-                          : 'Inactive'}
-                      </span>
-                    </td>
-
-                    <td>
-                      <div className="row-actions">
-                        <button
-                          onClick={() =>
-                            openEditForm(product)
+                      <td>
+                        <span
+                          className={
+                            product.isActive
+                              ? 'status-active'
+                              : 'status-inactive'
                           }
-                          type="button"
-                        >
-                          Edit
-                        </button>
-
-                        <button
-                          onClick={() =>
-                            void handleToggleProduct(product)
-                          }
-                          type="button"
                         >
                           {product.isActive
-                            ? 'Disable'
-                            : 'Enable'}
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                            ? 'Active'
+                            : 'Inactive'}
+                        </span>
+                      </td>
+
+                      <td>
+                        <div className="row-actions">
+                          <button
+                            onClick={() =>
+                              openEditForm(
+                                product,
+                              )
+                            }
+                            type="button"
+                          >
+                            Edit
+                          </button>
+
+                          <button
+                            onClick={() =>
+                              void handleToggleProduct(
+                                product,
+                              )
+                            }
+                            type="button"
+                          >
+                            {product.isActive
+                              ? 'Disable'
+                              : 'Enable'}
+                          </button>
+
+                          {staff?.role ===
+                            'manager' && (
+                            <button
+                              className="danger-button"
+                              onClick={() =>
+                                void handleDeleteProduct(
+                                  product,
+                                )
+                              }
+                              disabled={
+                                deletingProductId ===
+                                product.id
+                              }
+                              type="button"
+                            >
+                              {deletingProductId ===
+                              product.id
+                                ? 'Deleting...'
+                                : 'Delete'}
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ),
+                )
               )}
             </tbody>
           </table>
@@ -431,14 +610,17 @@ export default function ProductsPage() {
                 </h2>
 
                 <p>
-                  Product stock will be handled separately
-                  through inventory movements.
+                  Product stock will be handled
+                  separately through inventory
+                  movements.
                 </p>
               </div>
 
               <button
                 className="modal-close"
-                onClick={() => setFormOpen(false)}
+                onClick={() =>
+                  setFormOpen(false)
+                }
                 type="button"
               >
                 ×
@@ -448,12 +630,14 @@ export default function ProductsPage() {
             <div className="product-form-grid">
               <label className="form-wide">
                 Product Name
+
                 <input
                   value={form.name}
                   onChange={(event) =>
                     setForm({
                       ...form,
-                      name: event.target.value,
+                      name:
+                        event.target.value,
                     })
                   }
                 />
@@ -461,13 +645,17 @@ export default function ProductsPage() {
 
               <label>
                 Category
+
                 <select
-                  value={form.categoryId ?? ''}
+                  value={
+                    form.categoryId ?? ''
+                  }
                   onChange={(event) =>
                     setForm({
                       ...form,
                       categoryId:
-                        event.target.value || null,
+                        event.target.value ||
+                        null,
                     })
                   }
                 >
@@ -475,31 +663,38 @@ export default function ProductsPage() {
                     No category
                   </option>
 
-                  {categories.map((category) => (
-                    <option
-                      key={category.id}
-                      value={category.id}
-                    >
-                      {category.name}
-                    </option>
-                  ))}
+                  {categories.map(
+                    (category) => (
+                      <option
+                        key={category.id}
+                        value={category.id}
+                      >
+                        {category.name}
+                      </option>
+                    ),
+                  )}
                 </select>
               </label>
 
               <label>
                 Unit
+
                 <select
                   value={form.unit}
                   onChange={(event) =>
                     setForm({
                       ...form,
                       unit:
-                        event.target.value as ProductUnit,
+                        event.target
+                          .value as ProductUnit,
                     })
                   }
                 >
                   {units.map((unit) => (
-                    <option key={unit} value={unit}>
+                    <option
+                      key={unit}
+                      value={unit}
+                    >
                       {unit}
                     </option>
                   ))}
@@ -508,12 +703,14 @@ export default function ProductsPage() {
 
               <label>
                 SKU
+
                 <input
                   value={form.sku ?? ''}
                   onChange={(event) =>
                     setForm({
                       ...form,
-                      sku: event.target.value,
+                      sku:
+                        event.target.value,
                     })
                   }
                 />
@@ -521,12 +718,16 @@ export default function ProductsPage() {
 
               <label>
                 Barcode
+
                 <input
-                  value={form.barcode ?? ''}
+                  value={
+                    form.barcode ?? ''
+                  }
                   onChange={(event) =>
                     setForm({
                       ...form,
-                      barcode: event.target.value,
+                      barcode:
+                        event.target.value,
                     })
                   }
                 />
@@ -534,12 +735,16 @@ export default function ProductsPage() {
 
               <label>
                 Colour
+
                 <input
-                  value={form.colour ?? ''}
+                  value={
+                    form.colour ?? ''
+                  }
                   onChange={(event) =>
                     setForm({
                       ...form,
-                      colour: event.target.value,
+                      colour:
+                        event.target.value,
                     })
                   }
                 />
@@ -547,12 +752,14 @@ export default function ProductsPage() {
 
               <label>
                 Size
+
                 <input
                   value={form.size ?? ''}
                   onChange={(event) =>
                     setForm({
                       ...form,
-                      size: event.target.value,
+                      size:
+                        event.target.value,
                     })
                   }
                 />
@@ -560,16 +767,22 @@ export default function ProductsPage() {
 
               <label>
                 Cost Price
+
                 <input
                   type="number"
                   min="0"
                   step="0.01"
-                  value={form.costPrice}
+                  value={
+                    form.costPrice
+                  }
                   onChange={(event) =>
                     setForm({
                       ...form,
                       costPrice:
-                        Number(event.target.value),
+                        Number(
+                          event.target
+                            .value,
+                        ),
                     })
                   }
                 />
@@ -577,16 +790,22 @@ export default function ProductsPage() {
 
               <label>
                 Retail Price
+
                 <input
                   type="number"
                   min="0"
                   step="0.01"
-                  value={form.retailPrice}
+                  value={
+                    form.retailPrice
+                  }
                   onChange={(event) =>
                     setForm({
                       ...form,
                       retailPrice:
-                        Number(event.target.value),
+                        Number(
+                          event.target
+                            .value,
+                        ),
                     })
                   }
                 />
@@ -594,16 +813,22 @@ export default function ProductsPage() {
 
               <label>
                 Wholesale Price
+
                 <input
                   type="number"
                   min="0"
                   step="0.01"
-                  value={form.wholesalePrice}
+                  value={
+                    form.wholesalePrice
+                  }
                   onChange={(event) =>
                     setForm({
                       ...form,
                       wholesalePrice:
-                        Number(event.target.value),
+                        Number(
+                          event.target
+                            .value,
+                        ),
                     })
                   }
                 />
@@ -611,16 +836,22 @@ export default function ProductsPage() {
 
               <label>
                 Minimum Stock
+
                 <input
                   type="number"
                   min="0"
                   step="0.001"
-                  value={form.minimumStockQty}
+                  value={
+                    form.minimumStockQty
+                  }
                   onChange={(event) =>
                     setForm({
                       ...form,
                       minimumStockQty:
-                        Number(event.target.value),
+                        Number(
+                          event.target
+                            .value,
+                        ),
                     })
                   }
                 />
@@ -630,7 +861,9 @@ export default function ProductsPage() {
             <div className="modal-actions">
               <button
                 className="secondary-button"
-                onClick={() => setFormOpen(false)}
+                onClick={() =>
+                  setFormOpen(false)
+                }
                 disabled={saving}
                 type="button"
               >
@@ -661,15 +894,21 @@ export default function ProductsPage() {
           <div className="category-modal">
             <div className="modal-heading">
               <div>
-                <h2>Add Category</h2>
+                <h2>
+                  Add Category
+                </h2>
+
                 <p>
-                  Create a product category for Deshan Textile.
+                  Create a product category
+                  for Deshan Textile.
                 </p>
               </div>
 
               <button
                 className="modal-close"
-                onClick={() => setCategoryOpen(false)}
+                onClick={() =>
+                  setCategoryOpen(false)
+                }
                 type="button"
               >
                 ×
@@ -679,19 +918,27 @@ export default function ProductsPage() {
             <div className="category-form">
               <label>
                 Category Name
+
                 <input
-                  value={categoryName}
+                  value={
+                    categoryName
+                  }
                   onChange={(event) =>
-                    setCategoryName(event.target.value)
+                    setCategoryName(
+                      event.target.value,
+                    )
                   }
                 />
               </label>
 
               <label>
                 Description
+
                 <textarea
                   rows={4}
-                  value={categoryDescription}
+                  value={
+                    categoryDescription
+                  }
                   onChange={(event) =>
                     setCategoryDescription(
                       event.target.value,
@@ -704,7 +951,9 @@ export default function ProductsPage() {
             <div className="modal-actions">
               <button
                 className="secondary-button"
-                onClick={() => setCategoryOpen(false)}
+                onClick={() =>
+                  setCategoryOpen(false)
+                }
                 disabled={saving}
                 type="button"
               >
